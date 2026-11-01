@@ -36,15 +36,8 @@ A CEEE Equatorial cobra uma taxa mínima de disponibilidade de acordo com o padr
 
 O valor faturado da conta é o maior valor entre o consumo real do usuário e a taxa mínima da sua ligação, multiplicado pela tarifa estimada da concessionária (com impostos inclusos).
 
-### 2. Dimensionamento Fotovoltaico
 
-* Considera-se a irradiação solar média do Estado do Rio Grande do Sul, onde **1 kWp** instalado produz em média **120 kWh/mês**.
-
-* **Potência Recomendada (kWp)** = $\frac{\text{Consumo Mensal (kWh)}}{120}$
-
-* **Custo Estimado da Instalação** = $\text{Potência (kWp)} \times \text{R\$ 4.200,00}$ *(Valor médio de mercado incluindo painéis, inversor, estrutura e mão de obra/homologação)*.
-
-### 3. Simulação de Financiamento (Tabela Price)
+### 2. Simulação de Financiamento (Tabela Price)
 
 A prestação mensal ($PMT$) do empréstimo bancário é calculada através da fórmula:
 
@@ -126,6 +119,7 @@ projeto_solar_ceee/
 
 5. **Acesse no seu navegador:**
    Abra o endereço `http://127.0.0.1:5000` para utilizar o simulador.
+
 
 
 ## 📜 Licença
