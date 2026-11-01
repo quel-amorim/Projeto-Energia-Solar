@@ -1,11 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projeto Solar</title>
+    <title>Simulador Solar - CEEE Equatorial</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='estilos.css') }}">
 </head>
 <body>
-    <h1>Simulador de Energia Solar & Financiamento</h1>
+    <div class="container">
+        <h1>Simulador Solar & Financiamento</h1>
+        
+        <form method="POST">
+            <label for="consumo">Consumo Mensal (kWh):</label>
+            <input type="number" step="any" id="consumo" name="consumo" required placeholder="Ex: 350">
+
+            <label for="ligacao">Tipo de Ligação:</label>
+            <select id="ligacao" name="ligacao">
+                <option value="monofasico">Monofásico (Mín. 30 kWh)</option>
+                <option value="bifasico">Bifásico (Mín. 50 kWh)</option>
+                <option value="trifasico">Trifásico (Mín. 100 kWh)</option>
+            </select>
+
+            <label for="prazo">Prazo do Financiamento (Meses):</label>
+            <select id="prazo" name="prazo">
+                <option value="48">48 meses (4 anos)</option>
+                <option value="60" selected>60 meses (5 anos)</option>
+                <option value="96">96 meses (8 anos)</option>
+                <option value="120">120 meses (10 anos)</option>
+            </select>
+
+            <label for="juros">Taxa de Juros Anual Média (% a.a.):</label>
+            <input type="number" step="any" id="juros" name="juros" value="14.5" required>
+
+            <button type="submit">Simular Projeto e Financiamento</button>
+        </form>
+
+        {% if resultado %}
+        <div class="resultado">
+            <h2>Resultados da Análise</h2>
+            <p><strong>Conta Atual Sem Solar:</strong> R$ {{ resultado.custo_atual_mensal }} / mês</p>
+            <p><strong>Potência Recomendada:</strong> {{ resultado.potencia_necessaria }} kWp</p>
+            <p><strong>Investimento Total:</strong> R$ {{ resultado.custo_instalacao }}</p>
+            
+            <hr>
+            <h3>Simulação do Financiamento Bancário</h3>
+            <p><strong>Valor da Parcela ({{ resultado.prazo_meses }}x):</strong> R$ {{ resultado.prestacao_mensal }} / mês</p>
+            <p><strong>Economia Gerada na Conta:</strong> R$ {{ resultado.economia_mensal }} / mês</p>
+            
+            {% if resultado.saldo_mensal >= 0 %}
+                <p class="positivo"><strong>Vantagem Imediata:</strong> Seu ganho mensal é superior à parcela. Você economiza líquidos **R$ {{ resultado.saldo_mensal }}** por mês já durante o pagamento do banco!</p>
+            {% else %}
+                <p class="atencao"><strong>Atenção:</strong> A parcela fica R$ {{ resultado.saldo_mensal * -1 }} mais alta que a economia atual durante o financiamento, mas após quitar o empréstimo, você terá energia quase gratuita por mais de 20 anos!</p>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
 </body>
 </html>
